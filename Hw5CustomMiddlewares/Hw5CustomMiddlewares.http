@@ -1,0 +1,6 @@
+@Hw5CustomMiddlewares_HostAddress = http://localhost:5223
+
+GET {{Hw5CustomMiddlewares_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
