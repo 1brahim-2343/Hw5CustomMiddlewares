@@ -1,6 +1,6 @@
-﻿namespace Hw5CustomMiddlewares.Entities
+﻿namespace Hw5CustomMiddlewares.DTOs
 {
-    public class Airplane
+    public class AirplaneDto
     {
         public int Id { get; set; }
         public string Model { get; set; }
@@ -10,5 +10,6 @@
         public int Range { get; set; }
         public bool IsOperational { get; set; }
         public DateOnly ManufactureDate { get; set; }
+        public int AirplaneAge { get; set; }
     }
 }

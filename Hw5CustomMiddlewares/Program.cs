@@ -17,8 +17,13 @@ namespace Hw5CustomMiddlewares
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(cfg => {
+                cfg.LicenseKey = builder.Configuration["AutoMapper:LicenseKey"]!;
+            }, typeof(Program).Assembly);
+
             var connectionString = builder.Configuration.GetConnectionString("AirplaneManagerConnection");
             builder.Services.AddDbContext<AirplaneManagerContext>(options => options.UseSqlServer(connectionString));
+
 
             var app = builder.Build();
 

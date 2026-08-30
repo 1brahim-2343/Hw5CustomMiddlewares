@@ -20,4 +20,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Service\Abstract\" />
+    <Folder Include="Service\Concrete\" />
+  </ItemGroup>
+
 </Project>
