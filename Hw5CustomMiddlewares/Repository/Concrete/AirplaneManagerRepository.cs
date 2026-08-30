@@ -1,7 +1,9 @@
 ﻿using Hw5CustomMiddlewares.Data;
 using Hw5CustomMiddlewares.Entities;
+using Hw5CustomMiddlewares.Models;
 using Hw5CustomMiddlewares.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.ConstrainedExecution;
 
 namespace Hw5CustomMiddlewares.Repository.Concrete
 {
@@ -24,6 +26,28 @@ namespace Hw5CustomMiddlewares.Repository.Concrete
         {
             _context.Airplanes.Remove(airplane);
             return await SaveChangesAsync();
+        }
+
+        public async Task<PagedResult<Airplane>> GetAllPagedAsync(int page, int pageSize)
+        {
+            var query = _context.Airplanes;
+
+            var totalCount = await query.CountAsync();
+
+            var cars = await query
+                .OrderBy(x => x.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResult<Airplane>
+            {
+                items = cars,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
+            };
         }
 
         public Task<List<Airplane>> GetAsync()

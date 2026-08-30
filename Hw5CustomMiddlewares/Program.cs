@@ -1,5 +1,10 @@
 
 using Hw5CustomMiddlewares.Data;
+using Hw5CustomMiddlewares.Middleware;
+using Hw5CustomMiddlewares.Repository.Abstract;
+using Hw5CustomMiddlewares.Repository.Concrete;
+using Hw5CustomMiddlewares.Service.Abstract;
+using Hw5CustomMiddlewares.Service.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hw5CustomMiddlewares
@@ -17,13 +22,16 @@ namespace Hw5CustomMiddlewares
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddAutoMapper(cfg => {
+            builder.Services.AddAutoMapper(cfg =>
+            {
                 cfg.LicenseKey = builder.Configuration["AutoMapper:LicenseKey"]!;
             }, typeof(Program).Assembly);
 
             var connectionString = builder.Configuration.GetConnectionString("AirplaneManagerConnection");
             builder.Services.AddDbContext<AirplaneManagerContext>(options => options.UseSqlServer(connectionString));
 
+            builder.Services.AddScoped<IAirplaneManagerRepository, AirplaneManagerRepository>();
+            builder.Services.AddScoped<IAirplaneManagerService, AirplaneManagerService>();
 
             var app = builder.Build();
 
@@ -33,6 +41,8 @@ namespace Hw5CustomMiddlewares
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

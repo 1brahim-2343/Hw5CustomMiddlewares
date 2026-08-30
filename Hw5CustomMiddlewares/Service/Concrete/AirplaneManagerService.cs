@@ -1,4 +1,5 @@
 ﻿using Hw5CustomMiddlewares.Entities;
+using Hw5CustomMiddlewares.Models;
 using Hw5CustomMiddlewares.Repository.Abstract;
 using Hw5CustomMiddlewares.Service.Abstract;
 
@@ -45,6 +46,11 @@ namespace Hw5CustomMiddlewares.Service.Concrete
         public async Task<Airplane> UpdateAsync(Airplane airplane)
         {
             return await _airplaneRepo.UpdateAsync(airplane);
+        }
+
+        public async Task<PagedResult<Airplane>> GetAllPagedAsync(int page, int pageSize)
+        {
+            return await _airplaneRepo.GetAllPagedAsync(page, pageSize);
         }
     }
 }
