@@ -3,6 +3,7 @@ using Hw5CustomMiddlewares.DTOs;
 using Hw5CustomMiddlewares.Entities;
 using Hw5CustomMiddlewares.Models;
 using Hw5CustomMiddlewares.Service.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Hw5CustomMiddlewares.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AirplaneManagerController : ControllerBase
     {
         private readonly IAirplaneManagerService _airplaneService;
