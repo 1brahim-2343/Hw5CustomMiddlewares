@@ -34,7 +34,7 @@ namespace Hw5CustomMiddlewares.Repository.Concrete
 
             var totalCount = await query.CountAsync();
 
-            var cars = await query
+            var airplanes = await query
                 .OrderBy(x => x.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -42,7 +42,7 @@ namespace Hw5CustomMiddlewares.Repository.Concrete
 
             return new PagedResult<Airplane>
             {
-                items = cars,
+                items = airplanes,
                 Page = page,
                 PageSize = pageSize,
                 TotalCount = totalCount,
